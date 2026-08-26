@@ -1,0 +1,53 @@
+
+    body {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 0 16px;
+      font-family: Arial, sans-serif;
+      color: #1f2937;
+    }
+
+    h1, h2 {
+      color: #1d4ed8;
+    }
+
+    form, article {
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    label, input, textarea, select, button {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 8px;
+      margin-bottom: 14px;
+    }
+
+    input, textarea, select {
+      padding: 10px;
+      border: 1px solid #9ca3af;
+      border-radius: 4px;
+    }
+
+    button {
+      width: auto;
+      padding: 10px 16px;
+      background: #1d4ed8;
+      color: white;
+      border: 0;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .erro {
+      color: #b91c1c;
+      font-weight: bold;
+    }
+
+    .sucesso {
+      color: #166534;
+      font-weight: bold;
+    }
