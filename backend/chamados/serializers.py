@@ -20,8 +20,8 @@ class ChamadoSerializer(serializers.ModelSerializer):
         # A API aceita criação de chamados sem título.
         extra_kwargs = {
             "titulo": {
-                "required": False,
-                "allow_blank": True,
+                "required": True,
+                "allow_blank": False,
             },
         }
 
