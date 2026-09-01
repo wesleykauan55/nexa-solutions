@@ -1,12 +1,9 @@
 from rest_framework import serializers
-
 from .models import Chamado
-
 
 class ChamadoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chamado
-
         fields = [
             "id",
             "titulo",
@@ -16,12 +13,11 @@ class ChamadoSerializer(serializers.ModelSerializer):
             "atualizado_em",
         ]
 
-        # Falha intencional:
-        # A API aceita criação de chamados sem título.
+        # Correção da falha: Tornamos o título obrigatório e não permitimos branco
         extra_kwargs = {
             "titulo": {
-                "required": False,
-                "allow_blank": True,
+                "required": True,
+                "allow_blank": False,
             },
         }
 
@@ -30,3 +26,9 @@ class ChamadoSerializer(serializers.ModelSerializer):
             "criado_em",
             "atualizado_em",
         ]
+
+    # Validação extra para impedir que o usuário envie apenas espaços "   "
+    def validate_titulo(self, value):
+        if not value or value.strip() == "":
+            raise serializers.ValidationError("O título do chamado não pode estar vazio ou conter apenas espaços.")
+        return value
