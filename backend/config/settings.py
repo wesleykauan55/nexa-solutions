@@ -1,9 +1,18 @@
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+<<<<<<< HEAD
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
+=======
+load_dotenv(BASE_DIR.parent / ".env")
+
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
+
+>>>>>>> 88ffd76c11169db302ade1d70c6dee90dc0a14d4
 
 DEBUG = True
 

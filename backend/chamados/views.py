@@ -7,16 +7,25 @@ class ChamadoListCreateView(generics.ListCreateAPIView):
     serializer_class = ChamadoSerializer
 
     def get_queryset(self):
+<<<<<<< HEAD
         # 1. Pega todos os chamados
         queryset = Chamado.objects.all()
         
         # 2. Captura o parâmetro 'status' da URL (?status=ABERTO)
         status_param = self.request.query_params.get('status', None)
+=======
+        # 1. Pega todos os chamados do banco
+        queryset = Chamado.objects.all()
+        
+        # 2. Verifica se o usuário enviou o filtro na URL (ex: ?status=ABERTO)
+        status_param = self.request.query_params.get('status')
+>>>>>>> 88ffd76c11169db302ade1d70c6dee90dc0a14d4
 
         if status_param is not None:
             status_param = status_param.upper()
             status_permitidos = ['ABERTO', 'EM_ANDAMENTO', 'CONCLUIDO']
             
+<<<<<<< HEAD
             # 3. Valida se o status enviado é aceito
             if status_param not in status_permitidos:
                 raise ValidationError({
@@ -24,6 +33,15 @@ class ChamadoListCreateView(generics.ListCreateAPIView):
                 })
             
             # 4. Aplica o filtro no banco de dados
+=======
+            # 3. Tratamento de parâmetro inválido (Critério de Aceite)
+            if status_param not in status_permitidos:
+                raise ValidationError({
+                    "status": f"Status '{status_param}' é inválido. Escolha entre: ABERTO, EM_ANDAMENTO, CONCLUIDO."
+                })
+            
+            # 4. Aplica o filtro (Critério de Aceite)
+>>>>>>> 88ffd76c11169db302ade1d70c6dee90dc0a14d4
             queryset = queryset.filter(status=status_param)
 
         return queryset
