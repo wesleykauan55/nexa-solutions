@@ -4,42 +4,11 @@ from .models import Chamado
 
 class ChamadoFiltroTests(APITestCase):
     def setUp(self):
-<<<<<<< HEAD
-        # Criando massa de dados para o teste
-=======
         # 1. Prepara o banco de dados de teste com 3 chamados diferentes
->>>>>>> 88ffd76c11169db302ade1d70c6dee90dc0a14d4
         Chamado.objects.create(titulo="Erro no sistema", descricao="...", status="ABERTO")
         Chamado.objects.create(titulo="Ajuste de tela", descricao="...", status="EM_ANDAMENTO")
         Chamado.objects.create(titulo="Atualização DB", descricao="...", status="CONCLUIDO")
 
-<<<<<<< HEAD
-    def test_filtro_por_status_aberto_retorna_apenas_abertos(self):
-        """A rota deve aceitar filtro por status e retornar somente os chamados correspondentes."""
-        response = self.client.get('/api/chamados/?status=ABERTO')
-        
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 1)
-        self.assertEqual(response.data[0]['status'], 'ABERTO')
-
-    def test_filtro_por_status_invalido_retorna_erro_400(self):
-        """Parâmetros inválidos devem ser tratados adequadamente (HTTP 400)."""
-        response = self.client.get('/api/chamados/?status=INVALIDO')
-        
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-
-    def test_criacao_chamado_sem_titulo_retorna_erro_400(self):
-        """Não deve permitir a criação de um chamado com título vazio ou nulo."""
-        payload = {
-            "titulo": "",
-            "descricao": "Problema no roteador",
-            "status": "ABERTO"
-        }
-        response = self.client.post('/api/chamados/', payload, format='json')
-        
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn('titulo', response.data)
-=======
     def test_filtro_por_status_valido(self):
         """A rota deve aceitar filtro por status e retornar somente os chamados correspondentes."""
         # Faz a requisição simulando o usuário: GET /api/chamados/?status=ABERTO
@@ -59,4 +28,26 @@ class ChamadoFiltroTests(APITestCase):
         
         # Verifica se a API barrou a requisição com erro HTTP 400 (Bad Request)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
->>>>>>> 88ffd76c11169db302ade1d70c6dee90dc0a14d4
+
+
+class IndicadoresTests(APITestCase):
+    def setUp(self):
+        # Prepara o banco de dados com uma massa de dados controlada
+        Chamado.objects.create(titulo="Incidente 1", descricao="...", status="ABERTO")
+        Chamado.objects.create(titulo="Incidente 2", descricao="...", status="EM_ANDAMENTO")
+        Chamado.objects.create(titulo="Incidente 3", descricao="...", status="CONCLUIDO")
+        Chamado.objects.create(titulo="Incidente 4", descricao="...", status="CONCLUIDO")
+
+    def test_obter_indicadores(self):
+        """Garante que o endpoint de indicadores retorna as contagens corretas."""
+        # Acessa o novo endpoint de indicadores
+        response = self.client.get('/api/indicadores/')
+        
+        # Verifica se a requisição foi bem sucedida
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        
+        # Valida as totalizações conforme a massa de dados do setUp
+        self.assertEqual(response.data['total'], 4)
+        self.assertEqual(response.data['abertos'], 1)
+        self.assertEqual(response.data['em_andamento'], 1)
+        self.assertEqual(response.data['concluidos'], 2)

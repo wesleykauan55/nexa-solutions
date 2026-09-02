@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import ChamadoDetailView, ChamadoListCreateView
+from .views import ChamadoDetailView, ChamadoListCreateView, IndicadoresView
 
 urlpatterns = [
     path(
@@ -13,4 +13,9 @@ urlpatterns = [
         ChamadoDetailView.as_view(),
         name="chamado-detail",
     ),
-]
+    path(
+        "indicadores/",
+        IndicadoresView.as_view(),
+        name="indicadores",
+    ),
+]   
