@@ -5,6 +5,7 @@ from rest_framework.exceptions import ValidationError
 from .models import Chamado
 from .serializers import ChamadoSerializer
 
+##
 class ChamadoListCreateView(generics.ListCreateAPIView):
     serializer_class = ChamadoSerializer
 
